@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
-const app = props => {
-  const [ personsState, setPersonsState ] = useState({
+class App extends Component {
+
+  state = ({
     persons: [
       { name: 'Max', age: 28 },
       { name: 'Manu', age: 29 },
@@ -11,24 +12,29 @@ const app = props => {
     ],
   })
 
-  const switchNameHandler = () => {
-    setPersonsState({
+  switchNameHandler = (newName) => {
+    this.setState({
       persons: [
-        { name: 'AAA', age: 100 },
+        { name: newName, age: 100 },
         { name: 'BBB', age: 200 },
         { name: 'CCC', age: 300 }
       ]
     })
   }
-
-  return (
-    <div className="App">
-      <h1>Keep Practicing</h1>
-      <button onClick={switchNameHandler}>Change Values</button>
-      <Person person={personsState.persons}/>
-    </div>
-  );
+  
+  render() {
+    return (
+      <div className="App">
+        <h1>Keep Practicing</h1>
+        <button onClick={this.switchNameHandler.bind(this, 'Sam')}>Change Values</button>
+        <Person 
+          person={this.state.persons}
+          click={this.switchNameHandler} 
+        />
+      </div>
+    );
+  }
 
 }
 
-export default app;
+export default App;
