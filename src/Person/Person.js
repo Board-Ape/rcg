@@ -1,10 +1,11 @@
 import React from 'react';
 
 const person = (props) => {
-    return props.person.map(person => {
+    return props.person.map((person, key) => {
         return (
-            <div>
-                <p onClick={props.click}>{person.name} and {person.age}</p>
+            <div key={key}>
+                <p onClick={props.click.bind(this, key)}>{person.name} and {person.age}</p>
+                <input type="text" onChange={props.changed} key={key}/>
             </div>
         )
     })
