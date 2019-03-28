@@ -24,7 +24,7 @@ class App extends Component {
 
   nameChangedHandler = (event, id) => {
     const update = this.state.persons({
-      
+
     })
     this.setState({
       persons: [
@@ -36,10 +36,21 @@ class App extends Component {
   }
   
   render() {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '4px solid blue',
+      borderRadius: '20%',
+      padding: '8px',
+      cursor: 'pointer'
+    }
+
     return (
       <div className="App">
         <h1>Keep Practicing</h1>
-        <button onClick={this.switchNameHandler.bind(this, "Sam")}>Change Values</button>
+        <button 
+          style={style}
+          onClick={this.switchNameHandler.bind(this, "Sam")}>Change Values</button>
         <Person 
           person={this.state.persons}
           click={this.switchNameHandler} 
