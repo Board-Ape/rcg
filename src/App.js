@@ -43,18 +43,25 @@ class App extends Component {
   }
   
   render() {
-    return (
-      <div className="App">
-        <h1>Keep Practicing</h1>
-        <button onClick={this.switchNameHandler.bind(this, "Sam")}>Change Values</button>
-        <button onClick={this.togglePersonHandler}>Show Persons</button>
-        { this.state.showPerson ? <div>
+    let persons = null;
+
+    if (this.state.showPerson) {
+      persons = 
+        <div>
           <Person
             person={this.state.persons}
             click={this.switchNameHandler}
             changed={this.nameChangedHandler}
           />
-        </div> : null}
+        </div>
+    }
+
+    return (
+      <div className="App">
+        <h1>Keep Practicing</h1>
+        <button onClick={this.switchNameHandler.bind(this, "Sam")}>Change Values</button>
+        <button onClick={this.togglePersonHandler}>Show Persons</button>
+        {persons}
       </div>
     );
   }
