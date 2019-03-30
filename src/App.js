@@ -6,45 +6,63 @@ class App extends Component {
 
   state = ({
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { id: 100, name: 'Max', age: 28 },
+      { id: 200, name: 'Manu', age: 29 },
+      { id: 300, name: 'Stephanie', age: 26 }
     ],
+    showPerson: false
   })
 
   switchNameHandler = (newName) => {
     this.setState({
       persons: [
-        { name: newName, age: 100 },
-        { name: 'BBB', age: 200 },
-        { name: 'CCC', age: 300 }
-      ]
+        { id: 100, name: 'Max', age: 28 },
+        { id: 200, name: 'Manu', age: 29 },
+        { id: 300, name: 'Stephanie', age: 26 }
+      ],
     })
   }
 
-  nameChangedHandler = (event, id) => {
-    const update = this.state.persons({
-      
-    })
+  nameChangeHandler = (event, id) => {
+    let personIndex = this.state.persons.findIndex(p => p.id === id)
+    let persons = [...this.state.persons][personIndex]
+    persons.name = event.target.value
+    
     this.setState({
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Stephanie', age: 26 }
-      ]
+      persons: this.state.persons
+    })
+  }
+
+  togglePersonHandler = (event) => {
+    this.setState({
+      showPerson: !this.state.showPerson
     })
   }
   
   render() {
+    let people = null;
+
+    if (this.state.showPerson) {
+      people = this.state.persons.map(person => {
+        return (
+          <Person
+            key={person.id}
+            id={person.id}
+            name={person.name}
+            age={person.age}
+            click={this.switchNameHandler}
+            nameChangeHandler={this.nameChangeHandler}
+          />
+        )
+      })
+    }
+
     return (
       <div className="App">
         <h1>Keep Practicing</h1>
-        <button onClick={this.switchNameHandler.bind(this, "Sam")}>Change Values</button>
-        <Person 
-          person={this.state.persons}
-          click={this.switchNameHandler} 
-          changed={this.nameChangedHandler}
-        />
+        <button onClick={this.switchNameHandler}>Change Values</button>
+        <button onClick={this.togglePersonHandler}>Show Persons</button>
+        {people}
       </div>
     );
   }
